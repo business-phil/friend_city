@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friend City</title>
+</head>
+<body>
+    <h2>Friend Central</h2>
+    <h3>Friendships</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Friender</th>
+                <th>Friendee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for friendship in friendships %}
+            <tr>
+                <td>{{ friendship.person.name }}</td>
+                <td>{{ friendship.friend.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> <!-- end friendship table -->
+    <h3>Add Person</h3>
+    <form action="/create" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" />
+        <input type="submit" value="Add" />
+    </form> <!-- end Add Person -->
+    <h3>Make Friends</h3>
+    <form action="/process" method="post">
+        {% csrf_token %}
+        <select name="person">
+            {% for friend in friends %}
+                <option value="{{ friend.id }}">{{ friend.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="friend">
+            {% for friend in friends %}
+                <option value="{{ friend.id }}">{{ friend.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Friendify">
+    </form> <!-- end make friendship -->
+</body>
+</html>
